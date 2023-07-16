@@ -5,7 +5,7 @@ use got_label_creator_v3::models::xml::Document;
 use std::fs;
 
 fn main() {
-    let file: Vec<u16> = fs::read("./tests/Analog.xml")
+    let file: Vec<u16> = fs::read("./tests/base_types.xml")
         .unwrap()
         .chunks(2)
         .map(|b| u16::from_le_bytes([b[0], b[1]]))

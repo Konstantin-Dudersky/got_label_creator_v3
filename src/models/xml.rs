@@ -64,19 +64,29 @@ pub struct Variable {
 #[derive(Deserialize, Serialize, PartialEq, Debug)]
 pub struct VariableType {
     #[serde(rename = "$value")]
-    pub data_type: VariableTypes,
+    pub content: VariableTypes,
 }
 
 #[derive(Deserialize, Serialize, PartialEq, Debug)]
 pub enum VariableTypes {
-    #[serde(rename = "REAL")]
-    Real,
-    #[serde(rename = "INT")]
-    Int,
-    #[serde(rename = "derived")]
-    Derived,
     #[serde(rename = "array")]
     Array(Array),
+    #[serde(rename = "BOOL")]
+    Bool,
+    #[serde(rename = "derived")]
+    Derived,
+    #[serde(rename = "DINT")]
+    Dint,
+    #[serde(rename = "DWORD")]
+    Dword,
+    #[serde(rename = "INT")]
+    Int,
+    #[serde(rename = "REAL")]
+    Real,
+    #[serde(rename = "TIME")]
+    Time,
+    #[serde(rename = "WORD")]
+    Word,
 }
 
 #[derive(Deserialize, Serialize, PartialEq, Debug)]
