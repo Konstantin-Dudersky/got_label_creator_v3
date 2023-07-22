@@ -1,17 +1,26 @@
 use quick_xml::de::from_str;
 
-use got_label_creator_v3::models::xml::Document;
-
-use std::fs;
+use got_label_creator_v3::infrastructure::file_reader::read_file;
+use got_label_creator_v3::models::xml::{Document, Variable, VariableType, VariableTypes};
 
 fn main() {
-    let file: Vec<u16> = fs::read("./tests/base_types.xml")
-        .unwrap()
-        .chunks(2)
-        .map(|b| u16::from_le_bytes([b[0], b[1]]))
-        .collect();
-    let xml = String::from_utf16(&file[..]).unwrap().to_string();
+    let xml = read_file("./tests/base_types.xml").unwrap();
 
     let object: Document = from_str(&xml).unwrap();
-    println!("{object:#?}");
+
+    let global_vars = &object.instances.configurations.configuration.global_vars[0];
+    let table_name = global_vars.name.clone();
+    let var1 = &global_vars.variable[0];
+
+    match var1 {
+        Variable {
+            type_: VariableType {
+                content: VariableTypes::Bool,
+            },
+            name,
+            ..
+        } => println!("found, name: {}", name),
+        _ => println!("not found"),
+    }
+    // println!("{:#?}", var1);
 }
