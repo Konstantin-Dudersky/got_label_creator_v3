@@ -67,7 +67,7 @@ pub struct VariableType {
     pub content: VariableTypes,
 }
 
-#[derive(Deserialize, Serialize, PartialEq, Debug)]
+#[derive(Deserialize, Serialize, PartialEq, Debug, Clone)]
 pub enum VariableTypes {
     #[serde(rename = "array")]
     Array(Array),
@@ -149,14 +149,14 @@ pub struct VariableStructDeviceAssignmentItemArrayElement {
     pub member: Vec<MemberInStruct>,
 }
 
-#[derive(Deserialize, Serialize, PartialEq, Debug)]
+#[derive(Deserialize, Serialize, PartialEq, Debug, Clone)]
 pub struct Array {
     pub dimension: ArrayDimension,
     #[serde(rename = "baseType")]
     pub base_type: ArrayBaseType,
 }
 
-#[derive(Deserialize, Serialize, PartialEq, Debug)]
+#[derive(Deserialize, Serialize, PartialEq, Debug, Clone)]
 pub struct ArrayDimension {
     #[serde(rename = "@lower")]
     lower: i32,
@@ -164,13 +164,13 @@ pub struct ArrayDimension {
     upper: i32,
 }
 
-#[derive(Deserialize, Serialize, PartialEq, Debug)]
+#[derive(Deserialize, Serialize, PartialEq, Debug, Clone)]
 pub struct ArrayBaseType {
     #[serde(rename = "$value")]
     data_type: ArrayBaseTypes,
 }
 
-#[derive(Deserialize, Serialize, PartialEq, Debug)]
+#[derive(Deserialize, Serialize, PartialEq, Debug, Clone)]
 enum ArrayBaseTypes {
     #[serde(rename = "BOOL")]
     Bool,

@@ -1,26 +1,12 @@
-use quick_xml::de::from_str;
-
-use got_label_creator_v3::infrastructure::file_reader::read_file;
-use got_label_creator_v3::models::xml::{Document, Variable, VariableType, VariableTypes};
+use got_label_creator_v3::application::Runner;
+use got_label_creator_v3::infrastructure::{FileReader, XmlReader};
 
 fn main() {
-    let xml = read_file("./tests/base_types.xml").unwrap();
+    let filename = "./tests/base_types.xml";
 
-    let object: Document = from_str(&xml).unwrap();
+    let file_reader = FileReader::new();
+    let xml_reader = XmlReader::new();
+    let runner = Runner::new(file_reader, xml_reader);
 
-    let global_vars = &object.instances.configurations.configuration.global_vars[0];
-    let table_name = global_vars.name.clone();
-    let var1 = &global_vars.variable[0];
-
-    match var1 {
-        Variable {
-            type_: VariableType {
-                content: VariableTypes::Bool,
-            },
-            name,
-            ..
-        } => println!("found, name: {}", name),
-        _ => println!("not found"),
-    }
-    // println!("{:#?}", var1);
+    runner.run(filename).unwrap();
 }

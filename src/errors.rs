@@ -5,6 +5,8 @@ use std::string;
 pub enum Errors {
     ReadFile(io::Error),
     FromUtf16Error(string::FromUtf16Error),
+    UnknownDataTypeInXml(String),
+    DeserializationError(String),
 }
 
 impl From<io::Error> for Errors {
