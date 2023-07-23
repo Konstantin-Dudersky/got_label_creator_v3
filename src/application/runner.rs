@@ -24,7 +24,11 @@ impl Runner {
         }
     }
 
-    pub fn run(&self, input_xml: &str) -> Result<(), Errors> {
+    pub fn run(
+        &self,
+        input_xml: &str,
+        output_csv_path: &str,
+    ) -> Result<(), Errors> {
         let xml = self.file_reader.read(input_xml)?;
         let xml = self.xml_reader.read(&xml)?;
         let table_name = xml.instances.configurations.configuration.global_vars
@@ -33,7 +37,8 @@ impl Runner {
         .clone();
         let values = convert_xml_document(&xml)?;
         let values = convert_to_csv(&table_name, &values);
-        let output_file_name = format!("{}.csv", table_name);
+        let output_file_name =
+            format!("{}/{}.csv", output_csv_path, table_name);
         self.csv_writer.write(&output_file_name, &values)?;
         Ok(())
     }

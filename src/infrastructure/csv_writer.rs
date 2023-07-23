@@ -3,7 +3,6 @@
 //! Вложенные вектора должны быть одикановой длины
 
 use std::fs::File;
-use std::ops::Deref;
 
 use csv::Writer;
 

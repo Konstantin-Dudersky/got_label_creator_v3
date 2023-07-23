@@ -1,0 +1,11 @@
+,base_types,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,
+,Label Name,Data Type,Assign (Device),Comment,Comment2,Comment3,Comment4,Comment5,Comment6,Comment7,Comment8,Comment9,Comment10,Comment11,Comment12,Comment13,Comment14,Comment15,Comment16
+,_bool,Bit,D0.0,,,,,,,,,,,,,,,,
+,_u16,Unsigned BIN16,D1,,,,,,,,,,,,,,,,
+,_u32,Unsigned BIN32,D2,,,,,,,,,,,,,,,,
+,_i16,Signed BIN16,D4,,,,,,,,,,,,,,,,
+,_i32,Signed BIN32,D5,,,,,,,,,,,,,,,,
+,_float,Real(32bit),D7,,,,,,,,,,,,,,,,
+,_time,Unsigned BIN32,D9,,,,,,,,,,,,,,,,
