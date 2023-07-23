@@ -7,6 +7,9 @@ pub enum Errors {
     FromUtf16Error(string::FromUtf16Error),
     UnknownDataTypeInXml(String),
     DeserializationError(String),
+    /// ошибка создания файла csv
+    CsvFileCreationError(String),
+    CsvWriteLineError(String),
 }
 
 impl From<io::Error> for Errors {

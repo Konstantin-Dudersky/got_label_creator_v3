@@ -1,4 +1,4 @@
 pub mod application;
-pub mod domain;
-pub mod errors;
+mod domain;
+mod errors;
 pub mod infrastructure;

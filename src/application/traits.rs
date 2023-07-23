@@ -7,3 +7,11 @@ pub trait IFileReader {
 pub trait IXmlReader {
     fn read(&self, file: &str) -> Result<Document, Errors>;
 }
+
+pub trait ICsvWriter {
+    fn write(
+        &self,
+        file_name: &str,
+        data: Vec<Vec<&str>>,
+    ) -> Result<(), Errors>;
+}

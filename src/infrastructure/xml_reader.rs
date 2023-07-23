@@ -1,4 +1,4 @@
-//! Конвертация XML в структуру
+//! Чтение XML и преобразование в структуры Rust
 
 use quick_xml::de::{from_str, DeError};
 
