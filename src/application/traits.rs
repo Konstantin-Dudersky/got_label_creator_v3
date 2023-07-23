@@ -12,6 +12,6 @@ pub trait ICsvWriter {
     fn write(
         &self,
         file_name: &str,
-        data: Vec<Vec<&str>>,
+        data: &Vec<Vec<String>>,
     ) -> Result<(), Errors>;
 }

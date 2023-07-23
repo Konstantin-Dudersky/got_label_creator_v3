@@ -1,20 +1,20 @@
 use crate::errors::Errors;
 
-use super::super::models::{inner, input_xml};
+use super::super::models;
 
 pub fn convert_xml_variable(
-    xml_var: &input_xml::Variable,
-) -> Result<Vec<Box<dyn inner::GetValues>>, Errors> {
-    let mut result: Vec<Box<dyn inner::GetValues>> = vec![];
+    xml_var: &models::input_xml::Variable,
+) -> Result<Vec<models::inner::PrimitiveElement>, Errors> {
+    let mut result: Vec<models::inner::PrimitiveElement> = vec![];
     match xml_var {
         // примитивный тип
-        input_xml::Variable {
-            type_: input_xml::VariableType { content },
+        models::input_xml::Variable {
+            type_: models::input_xml::VariableType { content },
             name,
             address: Some(address),
             ..
         } => {
-            result = vec![inner::PrimitiveElement::new(
+            result = vec![models::inner::PrimitiveElement::new(
                 name,
                 content.clone().try_into()?,
                 address,

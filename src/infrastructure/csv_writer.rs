@@ -3,6 +3,7 @@
 //! Вложенные вектора должны быть одикановой длины
 
 use std::fs::File;
+use std::ops::Deref;
 
 use csv::Writer;
 
@@ -12,8 +13,8 @@ use crate::errors::Errors;
 pub struct CsvWriter {}
 
 impl CsvWriter {
-    pub fn new() -> Self {
-        Self {}
+    pub fn new() -> Box<Self> {
+        Self {}.into()
     }
 
     fn create_writer(&self, file_name: &str) -> Result<Writer<File>, Errors> {
@@ -47,11 +48,12 @@ impl ICsvWriter for CsvWriter {
     fn write(
         &self,
         file_name: &str,
-        data: Vec<Vec<&str>>,
+        data: &Vec<Vec<String>>,
     ) -> Result<(), Errors> {
         let mut wtr = self.create_writer(file_name)?;
         for line in data {
-            self.write_line(&mut wtr, &line)?;
+            let line_str: Vec<&str> = line.iter().map(String::as_str).collect();
+            self.write_line(&mut wtr, &line_str)?;
         }
         Ok(())
     }
@@ -67,10 +69,13 @@ mod tests {
     fn test1() {
         fs::create_dir_all("./temp").unwrap();
 
-        let data = vec![vec!["1", "2", "3"], vec!["4", "5", "6"]];
+        let data = vec![
+            vec!["1".to_string(), "2".to_string(), "3".to_string()],
+            vec!["4".to_string(), "5".to_string(), "6".to_string()],
+        ];
 
         let writer = CsvWriter::new();
 
-        writer.write("./temp/csv_writer_test1.csv", data).unwrap();
+        writer.write("./temp/csv_writer_test1.csv", &data).unwrap();
     }
 }

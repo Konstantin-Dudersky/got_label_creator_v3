@@ -12,6 +12,19 @@ pub enum PrimitiveType {
     Word,
 }
 
+impl Into<String> for PrimitiveType {
+    fn into(self) -> String {
+        match self {
+            PrimitiveType::Bool => "Bit".to_string(),
+            PrimitiveType::Dint => "Signed BIN32".to_string(),
+            PrimitiveType::Dword => "Unsigned BIN32".to_string(),
+            PrimitiveType::Int => "Signed BIN16".to_string(),
+            PrimitiveType::Real => "Real(32bit)".to_string(),
+            PrimitiveType::Word => "Unsigned BIN16".to_string(),
+        }
+    }
+}
+
 impl TryFrom<input_xml::VariableTypes> for PrimitiveType {
     type Error = Errors;
 
@@ -28,7 +41,7 @@ impl TryFrom<input_xml::VariableTypes> for PrimitiveType {
             input_xml::VariableTypes::Dword => Ok(PrimitiveType::Dword),
             input_xml::VariableTypes::Int => Ok(PrimitiveType::Int),
             input_xml::VariableTypes::Real => Ok(PrimitiveType::Real),
-            input_xml::VariableTypes::Time => Ok(PrimitiveType::Dint),
+            input_xml::VariableTypes::Time => Ok(PrimitiveType::Dword),
             input_xml::VariableTypes::Word => Ok(PrimitiveType::Word),
         }
     }
@@ -42,11 +55,7 @@ pub struct PrimitiveElement {
 }
 
 impl PrimitiveElement {
-    pub fn new(
-        name: &str,
-        data_type: PrimitiveType,
-        device: &str,
-    ) -> Box<Self> {
+    pub fn new(name: &str, data_type: PrimitiveType, device: &str) -> Self {
         Self {
             name: name.to_string(),
             data_type: data_type,
@@ -54,14 +63,4 @@ impl PrimitiveElement {
         }
         .into()
     }
-}
-
-impl GetValues for PrimitiveElement {
-    fn get_values(&self) -> Vec<PrimitiveElement> {
-        vec![self.clone()]
-    }
-}
-
-pub trait GetValues {
-    fn get_values(&self) -> Vec<PrimitiveElement>;
 }
